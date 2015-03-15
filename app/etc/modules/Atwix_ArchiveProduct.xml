@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Atwix_ArchiveProduct>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Catalog/>
+
+            </depends>
+        </Atwix_ArchiveProduct>
+    </modules>
+</config>

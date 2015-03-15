@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <atwix_archiveproduct translate="title" module="atwix_archiveproduct">
+                    <title>Manage Archived Products</title>
+                    <action>adminhtml/archiveproduct/</action>
+                    <sort_order>1</sort_order>
+                </atwix_archiveproduct>
+            </children>
+        </catalog>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <catalog>
+                        <children>
+                            <atwix_archiveproduct translate="title" module="atwix_archiveproduct">
+                                <title>Manage Archived Products</title>
+                            </atwix_archiveproduct>
+                        </children>
+                    </catalog>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
