@@ -47,10 +47,9 @@ class Atwix_ArchiveProduct_Adminhtml_ArchiveproductController extends Mage_Admin
     {
         $productIds = (array)$this->getRequest()->getParam('product');
         $storeId    = (int)$this->getRequest()->getParam('store', 0);
-        $isArchived = 0;
+        $isArchived = null;
 
         try {
-//            $this->_validateMassStatus($productIds, $status);
             Mage::getSingleton('catalog/product_action')
                 ->updateAttributes($productIds, array('is_archived' => $isArchived), $storeId);
 
@@ -77,7 +76,6 @@ class Atwix_ArchiveProduct_Adminhtml_ArchiveproductController extends Mage_Admin
         $isArchived = 1;
 
         try {
-//            $this->_validateMassStatus($productIds, $status);
             Mage::getSingleton('catalog/product_action')
                 ->updateAttributes($productIds, array('is_archived' => $isArchived), $storeId);
 

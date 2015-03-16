@@ -11,9 +11,6 @@
                 <class>Atwix_ArchiveProduct_Model</class>
                 <resourceModel>atwix_archiveproduct_resource</resourceModel>
             </atwix_archiveproduct>
-            <atwix_archiveproduct_resource>
-                <class>Atwix_ArchiveProduct_Model_Resource</class>
-            </atwix_archiveproduct_resource>
         </models>
         <blocks>
             <atwix_archiveproduct>
@@ -33,6 +30,16 @@
                 </setup>
             </atwix_archiveproduct_setup>
         </resources>
+        <events>
+            <catalog_product_collection_load_before>
+                <observers>
+                    <atwix_archiveproduct>
+                        <class>atwix_archiveproduct/observer</class>
+                        <method>addIsArchivedFilter</method>
+                    </atwix_archiveproduct>
+                </observers>
+            </catalog_product_collection_load_before>
+        </events>
     </global>
     <admin>
         <routers>

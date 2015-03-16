@@ -57,22 +57,6 @@ class Atwix_ArchiveProduct_Block_Adminhtml_Archiveproduct_Grid extends Mage_Admi
                 'inner',
                 $store->getId()
             );
-//            $collection->joinAttribute(
-//                'status',
-//                'catalog_product/status',
-//                'entity_id',
-//                null,
-//                'inner',
-//                $store->getId()
-//            );
-//            $collection->joinAttribute(
-//                'visibility',
-//                'catalog_product/visibility',
-//                'entity_id',
-//                null,
-//                'inner',
-//                $store->getId()
-//            );
             $collection->joinAttribute(
                 'price',
                 'catalog_product/price',
@@ -84,8 +68,6 @@ class Atwix_ArchiveProduct_Block_Adminhtml_Archiveproduct_Grid extends Mage_Admi
         }
         else {
             $collection->addAttributeToSelect('price');
-//            $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
-//            $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
         }
 
         $this->setCollection($collection);
@@ -183,24 +165,6 @@ class Atwix_ArchiveProduct_Block_Adminhtml_Archiveproduct_Grid extends Mage_Admi
                 ));
         }
 
-//        $this->addColumn('visibility',
-//            array(
-//                'header'=> Mage::helper('catalog')->__('Visibility'),
-//                'width' => '70px',
-//                'index' => 'visibility',
-//                'type'  => 'options',
-//                'options' => Mage::getModel('catalog/product_visibility')->getOptionArray(),
-//            ));
-//
-//        $this->addColumn('status',
-//            array(
-//                'header'=> Mage::helper('catalog')->__('Status'),
-//                'width' => '70px',
-//                'index' => 'status',
-//                'type'  => 'options',
-//                'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
-//            ));
-
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('websites',
                 array(
@@ -212,31 +176,6 @@ class Atwix_ArchiveProduct_Block_Adminhtml_Archiveproduct_Grid extends Mage_Admi
                     'options'   => Mage::getModel('core/website')->getCollection()->toOptionHash(),
                 ));
         }
-
-//        $this->addColumn('action',
-//            array(
-//                'header'    => Mage::helper('catalog')->__('Action'),
-//                'width'     => '50px',
-//                'type'      => 'action',
-//                'getter'     => 'getId',
-//                'actions'   => array(
-//                    array(
-//                        'caption' => Mage::helper('catalog')->__('Edit'),
-//                        'url'     => array(
-//                            'base'=>'*/*/edit',
-//                            'params'=>array('store'=>$this->getRequest()->getParam('store'))
-//                        ),
-//                        'field'   => 'id'
-//                    )
-//                ),
-//                'filter'    => false,
-//                'sortable'  => false,
-//                'index'     => 'stores',
-//            ));
-
-//        if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss')) {
-//            $this->addRssList('rss/catalog/notifystock', Mage::helper('catalog')->__('Notify Low Stock RSS'));
-//        }
 
         return parent::_prepareColumns();
     }
@@ -258,31 +197,6 @@ class Atwix_ArchiveProduct_Block_Adminhtml_Archiveproduct_Grid extends Mage_Admi
             'confirm' => Mage::helper('atwix_archiveproduct')->__('Are you sure?')
         ));
 
-
-//        $statuses = Mage::getSingleton('catalog/product_status')->getOptionArray();
-//
-//        array_unshift($statuses, array('label'=>'', 'value'=>''));
-//        $this->getMassactionBlock()->addItem('status', array(
-//            'label'=> Mage::helper('catalog')->__('Change status'),
-//            'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
-//            'additional' => array(
-//                'visibility' => array(
-//                    'name' => 'status',
-//                    'type' => 'select',
-//                    'class' => 'required-entry',
-//                    'label' => Mage::helper('catalog')->__('Status'),
-//                    'values' => $statuses
-//                )
-//            )
-//        ));
-
-//        if (Mage::getSingleton('admin/session')->isAllowed('catalog/update_attributes')){
-//            $this->getMassactionBlock()->addItem('attributes', array(
-//                'label' => Mage::helper('catalog')->__('Update Attributes'),
-//                'url'   => $this->getUrl('*/catalog_product_action_attribute/edit', array('_current'=>true))
-//            ));
-//        }
-
         Mage::dispatchEvent('adminhtml_catalog_archive_product_grid_prepare_massaction', array('block' => $this));
         return $this;
     }
@@ -295,9 +209,5 @@ class Atwix_ArchiveProduct_Block_Adminhtml_Archiveproduct_Grid extends Mage_Admi
     public function getRowUrl($row)
     {
         return '';
-//            $this->getUrl('*/catalog_product/edit', array(
-//                'store'=>$this->getRequest()->getParam('store'),
-//                'id'=>$row->getId())
-//        );
     }
 }
