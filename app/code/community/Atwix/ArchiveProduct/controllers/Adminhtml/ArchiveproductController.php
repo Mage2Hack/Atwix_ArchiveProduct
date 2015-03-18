@@ -22,24 +22,8 @@ class Atwix_ArchiveProduct_Adminhtml_ArchiveproductController extends Mage_Admin
     public function massDeleteAction()
     {
         $productIds = $this->getRequest()->getParam('product');
-        if (!is_array($productIds)) {
-            $this->_getSession()->addError($this->__('Please select product(s).'));
-        } else {
-            if (!empty($productIds)) {
-                try {
-                    foreach ($productIds as $productId) {
-                        $product = Mage::getSingleton('catalog/product')->load($productId);
-                        Mage::dispatchEvent('catalog_controller_product_delete', array('product' => $product));
-                        $product->delete();
-                    }
-                    $this->_getSession()->addSuccess(
-                        $this->__('Total of %d record(s) have been deleted.', count($productIds))
-                    );
-                } catch (Exception $e) {
-                    $this->_getSession()->addError($e->getMessage());
-                }
-            }
-        }
+        $helper = Mage::helper('atwix_archiveproduct');
+        $helper->destroyProducts($productIds);
         $this->_redirect('*/*/index');
     }
 
@@ -48,24 +32,8 @@ class Atwix_ArchiveProduct_Adminhtml_ArchiveproductController extends Mage_Admin
         $productIds = (array)$this->getRequest()->getParam('product');
         $storeId    = (int)$this->getRequest()->getParam('store', 0);
         $isArchived = null;
-
-        try {
-            Mage::getSingleton('catalog/product_action')
-                ->updateAttributes($productIds, array('is_archived' => $isArchived), $storeId);
-
-            $this->_getSession()->addSuccess(
-                $this->__('Total of %d record(s) have been restored.', count($productIds))
-            );
-        }
-        catch (Mage_Core_Model_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()
-                ->addException($e, $this->__('An error occurred while restoring product(s) .'));
-        }
-
+        $helper = Mage::helper('atwix_archiveproduct');
+        $helper->toggleArchiveProducts($productIds, $isArchived, $storeId);
         $this->_redirect('*/*/', array('store'=> $storeId));
     }
 
@@ -74,24 +42,8 @@ class Atwix_ArchiveProduct_Adminhtml_ArchiveproductController extends Mage_Admin
         $productIds = (array)$this->getRequest()->getParam('product');
         $storeId    = (int)$this->getRequest()->getParam('store', 0);
         $isArchived = 1;
-
-        try {
-            Mage::getSingleton('catalog/product_action')
-                ->updateAttributes($productIds, array('is_archived' => $isArchived), $storeId);
-
-            $this->_getSession()->addSuccess(
-                $this->__('Total of %d record(s) have been archived.', count($productIds))
-            );
-        }
-        catch (Mage_Core_Model_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()
-                ->addException($e, $this->__('An error occurred while archiving product(s) .'));
-        }
-
+        $helper = Mage::helper('atwix_archiveproduct');
+        $helper->toggleArchiveProducts($productIds, $isArchived, $storeId);
         $this->_redirect('*/catalog_product/', array('store'=> $storeId));
     }
 
@@ -105,4 +57,18 @@ class Atwix_ArchiveProduct_Adminhtml_ArchiveproductController extends Mage_Admin
         return Mage::getSingleton('admin/session')->isAllowed('catalog/atwix_archiveproduct');
     }
 
+    /**
+     * Archive product action
+     */
+    public function archiveAction()
+    {
+        $productIds = (array)$this->getRequest()->getParam('id');
+        $storeId    = (int)$this->getRequest()->getParam('store', 0);
+        $isArchived = 1;
+        $helper = Mage::helper('atwix_archiveproduct');
+        $helper->toggleArchiveProducts($productIds, $isArchived, $storeId);
+
+        $this->getResponse()
+            ->setRedirect($this->getUrl('*/catalog_product/', array('store' => $storeId)));
+    }
 }

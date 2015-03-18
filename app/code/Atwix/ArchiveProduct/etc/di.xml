@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Module\Updater\SetupFactory">
+        <arguments>
+            <argument name="resourceTypes" xsi:type="array">
+                <item name="archiveproduct_setup" xsi:type="string">Magento\Catalog\Model\Resource\Setup</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Resource\Product\Collection">
+        <plugin name="removeAtchivedProductsFromCollection" type="Atwix\ArchiveProduct\Plugin\Catalog\Model\Resource\Product\Collection"/>
+    </type>
+</config>

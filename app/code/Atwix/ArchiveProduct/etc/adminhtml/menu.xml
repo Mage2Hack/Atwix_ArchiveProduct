@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Atwix_ArchiveProduct::archived_products" title="Archived Products" module="Atwix_ArchiveProduct" sortOrder="100" dependsOnModule="Magento_Catalog" parent="Magento_Catalog::inventory" action="archiveproduct/product" resource="Magento_Catalog::products"/>
+    </menu>
+</config>

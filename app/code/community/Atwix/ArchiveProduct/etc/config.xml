@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Atwix_ArchiveProduct>
-            <version>0.1.0</version>
+            <version>0.2.0</version>
         </Atwix_ArchiveProduct>
     </modules>
     <global>
@@ -58,10 +58,18 @@
                 <observers>
                     <atwix_archiveproduct>
                         <class>atwix_archiveproduct/observer</class>
-                        <method>chnageDeleteUrlToArchiveUrl</method>
+                        <method>changeMassDeleteUrlToMassArchiveUrl</method>
                     </atwix_archiveproduct>
                 </observers>
             </adminhtml_catalog_product_grid_prepare_massaction>
+            <adminhtml_block_html_before>
+                <observers>
+                    <atwix_archiveproduct>
+                        <class>atwix_archiveproduct/observer</class>
+                        <method>changeDeleteUrlToArchiveUrl</method>
+                    </atwix_archiveproduct>
+                </observers>
+            </adminhtml_block_html_before>
         </events>
     </adminhtml>
 </config>
