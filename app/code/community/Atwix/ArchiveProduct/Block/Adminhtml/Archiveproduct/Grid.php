@@ -192,7 +192,7 @@ class Atwix_ArchiveProduct_Block_Adminhtml_Archiveproduct_Grid extends Mage_Admi
         ));
 
         $this->getMassactionBlock()->addItem('delete', array(
-            'label'=> Mage::helper('atwix_archiveproduct')->__('Delete'),
+            'label'=> Mage::helper('atwix_archiveproduct')->__('Remove Permanently'),
             'url'  => $this->getUrl('*/*/massDelete'),
             'confirm' => Mage::helper('atwix_archiveproduct')->__('Are you sure?')
         ));
