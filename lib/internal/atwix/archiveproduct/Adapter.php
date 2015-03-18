@@ -2,6 +2,12 @@
 
 namespace Atwix\ArchiveProduct\Adapter;
 
+/**
+ * The set of methods compatible for both Magento versions
+ *
+ * Class Atwix_ArchiveProduct_Adapter
+ * @package Atwix\ArchiveProduct\Adapter
+ */
 class Atwix_ArchiveProduct_Adapter {
 
     /**
@@ -20,7 +26,14 @@ class Atwix_ArchiveProduct_Adapter {
         $this->_objectManager = $objectManager;
     }
 
-    // FOR BOTH MAGENTO VERSIONS !!
+    /**
+     * Archives/Restores products. Depends on $isArchived flag
+     *
+     * @param array $productIds
+     * @param int $isArchived
+     * @param int $storeId
+     * @return $this
+     */
     public function toggleArchiveProducts($productIds, $isArchived = 1, $storeId = 0)
     {
         if (!is_array($productIds) || empty($productIds)) {
@@ -42,7 +55,12 @@ class Atwix_ArchiveProduct_Adapter {
         return $this;
     }
 
-    // FOR BOTH MAGENTO VERSIONS !!
+    /**
+     * Removes products permanently
+     *
+     * @param array $productIds
+     * @return $this
+     */
     public function destroyProducts($productIds)
     {
         if (!is_array($productIds) || empty($productIds)) {
@@ -62,6 +80,12 @@ class Atwix_ArchiveProduct_Adapter {
         return $this;
     }
 
+    /**
+     * Adds message to messages bag
+     *
+     * @param string $message
+     * @param string $type
+     */
     protected function _addMessage($message, $type)
     {
         switch ($type) {
@@ -69,7 +93,6 @@ class Atwix_ArchiveProduct_Adapter {
                 if (NULL != $this->_messageManager) {
                     $this->_messageManager->addError($message);
                 } else {
-                    // For Magento 1
                     \Mage::getSingleton('adminhtml/session')->addError($message);
                 }
             break;
@@ -77,7 +100,6 @@ class Atwix_ArchiveProduct_Adapter {
                 if (NULL != $this->_messageManager) {
                     $this->_messageManager->addSuccess($message);
                 } else {
-                    // For Magento 1
                     \Mage::getSingleton('adminhtml/session')->addSuccess($message);
                 }
             break;
@@ -85,24 +107,35 @@ class Atwix_ArchiveProduct_Adapter {
                 if (NULL != $this->_messageManager) {
                     $this->_messageManager->addMessage($message);
                 } else {
-                    // For Magento 1
                     \Mage::getSingleton('adminhtml/session')->addMessage($message);
                 }
         }
     }
 
+    /**
+     * Updates producs attributes
+     *
+     * @param array $productIds
+     * @param array $attributes
+     * @param int $storeId
+     */
     protected function _updateAttributes($productIds, $attributes, $storeId)
     {
         if (NULL != $this->_objectManager) {
             $this->_objectManager->get('Magento\Catalog\Model\Product\Action')
                 ->updateAttributes($productIds, $attributes, $storeId);
         } else {
-            // For Magento 1
                 \Mage::getSingleton('catalog/product_action')
                     ->updateAttributes($productIds, $attributes, $storeId);
         }
     }
 
+    /**
+     * Loads product's entity by id
+     *
+     * @param int $productId
+     * @return mixed
+     */
     protected function _loadProduct($productId)
     {
         if (NULL != $this->_objectManager) {

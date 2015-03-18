@@ -38,7 +38,6 @@ class Product extends \Magento\Backend\App\Action
      */
     protected function _isAllowed()
     {
-        // TODO: change to the actual ACL
-        return true;
+        return $this->_authorization->isAllowed('Magento_Catalog::products');
     }
 }

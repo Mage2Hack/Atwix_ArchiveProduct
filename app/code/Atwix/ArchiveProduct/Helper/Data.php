@@ -4,6 +4,12 @@ namespace Atwix\ArchiveProduct\Helper;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 
+/**
+ * Helper for interacting with shared library
+ *
+ * Class Data
+ * @package Atwix\ArchiveProduct\Helper
+ */
 class Data {
 
     protected $_libDirectoryPath;
@@ -29,11 +35,25 @@ class Data {
         }
     }
 
+    /**
+     * Archives/Restores products. Depends on $isArchived flag
+     *
+     * @param array $productIds
+     * @param int $isArchived
+     * @param int $storeId
+     * @return $this
+     */
     public function toggleArchiveProducts($productIds, $isArchived, $storeId)
     {
         return $this->_adapter->toggleArchiveProducts($productIds, $isArchived, $storeId);
     }
 
+    /**
+     * Removes products permanently
+     *
+     * @param array $productIds
+     * @return $this
+     */
     public function destroyProducts($productIds)
     {
         return $this->_adapter->destroyProducts($productIds);
